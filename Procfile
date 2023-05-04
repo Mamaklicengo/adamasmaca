@@ -1,1 +1,1 @@
-worker: Python3 adamasmaca.py
+worker: python3 adamasmaca.py
