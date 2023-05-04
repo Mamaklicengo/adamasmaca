@@ -108,10 +108,12 @@ class Hangman:
         ]
         await self.client.send_message(self.chat_id, stages[self.lives])
         
-api_id = YOUR_API_ID
-api_hash = 'YOUR_API_HASH'
-bot_token = '' 
-client = telethon.TelegramClient('hangman', api_id, api_hash).start(bot_token=bot_token)
+api_id = '25989627'
+api_hash = 'dff2250c7620fef64cd17e4355432d82'
+bot_token = '6061198850:AAHAVRNvVRNOv81teRsLWwghhbx4FKXUWL8'
+
+client = TelegramClient('bot', api_id, api_hash).start(bot_token=bot_token)
+
 
 @client.on(telethon.events.NewMessage(chats='hangman_bot'))
 async def handler(event):
