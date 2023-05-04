@@ -112,7 +112,7 @@ api_id = '25989627'
 api_hash = 'dff2250c7620fef64cd17e4355432d82'
 bot_token = '6022154020:AAEekctwuqrK8ZchRxW4_CPVEn-srDGgEYo'
 
-client = telethon.TelegramClient('adamasmamaca', api_id, api_hash).start(bot_token=bot_token)
+client = TelegramClient('adamasmamaca', api_id, api_hash).start(bot_token=bot_token)
 
 
 @client.on(telethon.events.NewMessage(chats='hangman_bot'))
