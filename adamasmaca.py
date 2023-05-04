@@ -1,4 +1,4 @@
-from telethon import
+import telethon
 import asyncio
 
 class Hangman:
