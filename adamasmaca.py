@@ -4,7 +4,7 @@ import telebot
 bot = telebot.TeleBot("5861916928:AAF1szw5vhSWcaGksYeO2m9bS4FENSE6W9M")
 
 # Define the game and its variables
-word = "vefa","cengo","mamaklı","ışık"
+word = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay"
 guesses = []
 max_guesses = 6
 
@@ -22,37 +22,37 @@ hangman_drawings = [
 # Define the game start command
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Welcome to Hangman! Type /play to start a new game.")
+    bot.reply_to(message, "Ooooo yigenim hoş geldin başlamak açın /haydi komutunu kullan.")
 
 # Define the game play command
-@bot.message_handler(commands=['play'])
+@bot.message_handler(commands=['haydi'])
 def play_game(message):
     global word, guesses
-    word = "python"
+    word = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay"
     guesses = []
-    bot.reply_to(message, "Let's play Hangman! I'm thinking of a {}-letter word. Guess a letter by typing it in the chat.".format(len(word)))
+    bot.reply_to(message, "Adam Asmaca oynayalım! {}-harfli bir kelime düşünüyorum. Sohbete yazarak bir harf tahmin edin..".format(len(word)))
 
 # Define the game guess handler
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     global word, guesses, max_guesses
     if len(guesses) >= max_guesses:
-        bot.reply_to(message, "Sorry, you've run out of guesses! The word was {}.".format(word))
+        bot.reply_to(message, "Üzgünüz, tahminleriniz tükendi! Kelime {}.".format(word))
         return
     guess = message.text.lower()
     if guess in guesses:
-        bot.reply_to(message, "You already guessed that letter! Guess again.")
+        bot.reply_to(message, "O harfi zaten tahmin ettin! Tekrar tahmin et..")
         return
     guesses.append(guess)
     if guess in word:
         if set(word) == set(guesses):
-            bot.reply_to(message, "Congratulations, you've won! The word was {}.".format(word))
+            bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
             return
         else:
             masked_word = "".join([letter if letter in guesses else "_" for letter in word])
-            bot.reply_to(message, "Good guess! The word so far is:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)-1]))
+            bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)-1]))
     else:
-        bot.reply_to(message, "Sorry, that letter is not in the word. Guess again.")
+        bot.reply_to(message, "Üzgünüm, o harf kelimede yok. Tekrar tahmin et..")
         bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
 
 # Start the bot
