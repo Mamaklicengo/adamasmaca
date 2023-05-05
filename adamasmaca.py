@@ -103,8 +103,8 @@ def select_flag():
 # /play komutuna cevap verme
 @bot.message_handler(commands=['bayrak'])
 def play_message(message):
-    flag, country = select_flag()
-    bot.send_message(message.chat.id, f'Hangi ülkenin bayrağı bu? {flag}')
+    flag_url, country = select_flag()
+    bot.send_message(message.chat.id, f'Hangi ülkenin bayrağı bu? {flag_url}')
     bot.register_next_step_handler(message, check_answer, country)
 
 # Cevap kontrol fonksiyonu
