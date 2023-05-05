@@ -97,9 +97,8 @@ flags = {
 
 # Rastgele bir bayrak ve ülke seçme fonksiyonu
 def select_flag():
-    flag = random.choice(list(flags.keys()))
-    country = flags[flag]
-    return flag, country
+    flag_url, country = random.choice(list(flags.items()))
+    return flag_url, country
 
 # /play komutuna cevap verme
 @bot.message_handler(commands=['bayrak'])
