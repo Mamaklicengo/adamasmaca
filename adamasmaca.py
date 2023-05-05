@@ -1,10 +1,11 @@
 import telebot
+import random
 
 # Create a new bot with your API token
 bot = telebot.TeleBot("5861916928:AAF1szw5vhSWcaGksYeO2m9bS4FENSE6W9M")
 
 # Define the game and its variables
-word = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay"
+words = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay"
 guesses = []
 max_guesses = 6
 
@@ -28,7 +29,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['haydi'])
 def play_game(message):
     global word, guesses
-    word = ("vefa"),("Mamaklı")
+    word = random.choice(words)
     guesses = []
     bot.reply_to(message, "Adam Asmaca oynayalım! {}-harfli bir kelime düşünüyorum. Sohbete yazarak bir harf tahmin edin..".format(len(word)))
 
