@@ -33,6 +33,7 @@ def play_game(message):
     guesses = []
     bot.reply_to(message, "Adam Asmaca oynayalım! {}-harfli bir kelime düşünüyorum. Sohbete yazarak bir harf tahmin edin..".format(len(word)))
 
+
 # Define the game guess handler
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
@@ -41,17 +42,19 @@ def handle_message(message):
         bot.reply_to(message, "Üzgünüz, tahminleriniz tükendi! Kelime {}.".format(word))
         return
     guess = message.text.lower()
+    if guess == word:
+        bot.reply_to(message, "Tebrikler, kelimeyi doğru bildiniz! Kelime {}.".format(word))
+        return
     if guess in guesses:
         bot.reply_to(message, "O harfi zaten tahmin ettin! Tekrar tahmin et..")
         return
     guesses.append(guess)
+    if set(word) == set(guesses):
+        bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
+        return
     if guess in word:
-        if set(word) == set(guesses):
-            bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
-            return
-        else:
-            masked_word = "".join([letter if letter in guesses else "_" for letter in word])
-            bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)]))
+        masked_word = "".join([letter if letter in guesses else "_" for letter in word])
+        bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)]))
     else:
         bot.reply_to(message, "Üzgünüm, o harf kelimede yok. Tekrar tahmin et..")
         bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
