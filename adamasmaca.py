@@ -28,12 +28,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['haydi'])
 def play_game(message):
     global word, guesses
-    word = {
-             "vefa",
-             "Mamaklı",
-             "cengo",
-             "fatmazel"
-            }
+    word = ("vefa"),("Mamaklı")
     guesses = []
     bot.reply_to(message, "Adam Asmaca oynayalım! {}-harfli bir kelime düşünüyorum. Sohbete yazarak bir harf tahmin edin..".format(len(word)))
 
