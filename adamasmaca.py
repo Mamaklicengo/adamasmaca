@@ -1,5 +1,3 @@
-#Tabii, aşağıdaki kodda değişiklikler yapılmıştır:
-
 import telebot
 import random
 
@@ -54,13 +52,16 @@ def handle_message(message):
         bot.reply_to(message, "O harfi zaten tahmin ettin! Tekrar tahmin et..")
         return
     guesses.append(guess)
-    if set(word) == set(guesses):
+    if word == guess:
         bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
         game_started = False
         return
     if guess in word:
         masked_word = "".join([letter if letter in guesses else "_" for letter in word])
-        bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)-0]))
+        bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)]))
+        if masked_word == word:
+            bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
+            game_started = False
     else:
         bot.reply_to(message, "Üzgünüm, o harf kelimede yok. Tekrar tahmin et..")
         bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
@@ -72,7 +73,7 @@ def handle_message(message):
 @bot.message_handler(func=lambda message: True)
 def ignore_message(message):
     if game_started:
-        bot.reply_to(message, "Oyun devam ediyor, lütfen sadece harf tahminleri yapın.")
+        bot.reply_to(message, "Oyun devam ediyor, lütfen sadece harf veya kelime tahminleri yapın.")
     else:
         pass
 
