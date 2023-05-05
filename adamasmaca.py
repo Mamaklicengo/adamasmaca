@@ -1,7 +1,7 @@
 import telethon
 import asyncio
 
-class Hangman:
+class adamasmaca:
     def __init__(self, client, chat_id, word):
         self.client = client
         self.chat_id = chat_id
@@ -24,7 +24,7 @@ class Hangman:
                 self.guessed.add(guess)
                 if guess not in self.word:
                     self.lives -= 1
-                    await self.show_hangman()
+                    await self.show_adamasmacs()
                     if self.lives == 0:
                         await self.client.send_message(self.chat_id, f"Kaybettiniz! Kelime {self.word} idi.")
                         self.game_over = True
@@ -49,7 +49,7 @@ class Hangman:
         display_word = "".join([c if c in self.guessed else "_" for c in self.word])
         await self.client.send_message(self.chat_id, display_word)
 
-    async def show_hangman(self):
+    async def show_adamasmaca(self):
         stages = [  
             """
                  --------
@@ -117,7 +117,7 @@ client = telethon.TelegramClient('adamasmamaca', api_id, api_hash).start(bot_tok
 
 @client.on(telethon.events.NewMessage(pattern='/adamasmaca'))
 async def adamasmaca(event):
-    game = Hangman(client, event.chat_id, "telethon")
+    game = adamasmaca(client, event.chat_id, "telethon")
     await game.play()
 
 async def main():
