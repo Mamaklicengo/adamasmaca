@@ -24,7 +24,7 @@ class adamasmaca:
                 self.guessed.add(guess)
                 if guess not in self.word:
                     self.lives -= 1
-                    await self.show_adamasmacs()
+                    await self.show_adamasmaca()
                     if self.lives == 0:
                         await self.client.send_message(self.chat_id, f"Kaybettiniz! Kelime {self.word} idi.")
                         self.game_over = True
