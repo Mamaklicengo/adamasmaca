@@ -89,5 +89,30 @@ def ignore_message(message):
     else:
         pass
 
+
+flags = {
+    'https://telegra.ph/amerika-05-05-10': 'Amerika Birleşik Devletleri',
+    'https://telegra.ph/Turkiye-05-05-3': 'Türkiye'
+}
+
+# Rastgele bir bayrak ve ülke seçme fonksiyonu
+def select_flag():
+    flag = random.choice(list(flags.keys()))
+    country = flags[flag]
+    return flag, country
+
+# /play komutuna cevap verme
+@bot.message_handler(commands=['bayrak'])
+def play_message(message):
+    flag, country = select_flag()
+    bot.send_message(message.chat.id, f'Hangi ülkenin bayrağı bu? {flag}')
+    bot.register_next_step_handler(message, check_answer, country)
+
+# Cevap kontrol fonksiyonu
+def check_answer(message, country):
+    if message.text == country:
+        bot.send_message(message.chat.id, 'Tebrikler, doğru cevap!')
+    else:
+        bot.send_message(message.chat.id, f'Maalesef yanlış cevap. Doğru cevap {country}.')
 # Start the bot
 bot.polling()
