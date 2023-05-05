@@ -115,8 +115,8 @@ bot_token = '6022154020:AAEekctwuqrK8ZchRxW4_CPVEn-srDGgEYo'
 client = telethon.TelegramClient('adamasmamaca', api_id, api_hash).start(bot_token=bot_token)
 
 
-@client.on(telethon.events.NewMessage(pattern='/adamasmaca'))
-async def adamasmaca(event):
+@client.on(telethon.events.NewMessage(pattern='/adamas'))
+async def adamas(event):
     game = adamasmaca(client, event.chat_id, "telethon")
     await game.play()
 
