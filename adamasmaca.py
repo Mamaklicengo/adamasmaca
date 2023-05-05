@@ -51,7 +51,7 @@ def handle_message(message):
             return
         else:
             masked_word = "".join([letter if letter in guesses else "_" for letter in word])
-            bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)-1]))
+            bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)]))
     else:
         bot.reply_to(message, "Üzgünüm, o harf kelimede yok. Tekrar tahmin et..")
         bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
