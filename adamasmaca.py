@@ -41,33 +41,45 @@ def play_game(message):
     word = random.choice(words)
     guesses = []
     game_started = True
-    bot.reply_to(message, "Adam Asmaca oynayalım! {} harfli bir kelime düşünüyorum. Sohbete yazarak bir harf tahmin edin..".format(len(word)))
+    bot.reply_to(message, "Adam Asmaca oynayalım! {} harfli bir kelime düşünüyorum. Sohbete yazarak bir harf veya tam kelime tahmin edin..".format(len(word)))
 
 # Define the game guess handler
-@bot.message_handler(func=lambda message: game_started and message.text.isalpha() and len(message.text)==1)
+@bot.message_handler(func=lambda message: game_started and message.text.isalpha() and (len(message.text)==1 or len(message.text)==len(word)))
 def handle_message(message):
     global word, guesses, max_guesses, game_started
     guess = message.text.lower()
     if guess in guesses:
-        bot.reply_to(message, "O harfi zaten tahmin ettin! Tekrar tahmin et..")
+        bot.reply_to(message, "O harfi/kelimeyi zaten tahmin ettin! Tekrar tahmin et..")
         return
     guesses.append(guess)
     if word == guess:
         bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
         game_started = False
         return
-    if guess in word:
-        masked_word = "".join([letter if letter in guesses else "_" for letter in word])
-        bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)]))
-        if masked_word == word:
+    if len(guess) == len(word):
+        if guess == word:
             bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
             game_started = False
+            return
+        else:
+            bot.reply_to(message, "Üzgünüm, yanlış kelime tahmini. Tekrar tahmin et..")
+            bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
+            if len(guesses) >= max_guesses:
+                bot.reply_to(message, "Üzgünüz, tahminleriniz tükendi! Kelime {}.".format(word))
+                game_started = False
     else:
-        bot.reply_to(message, "Üzgünüm, o harf kelimede yok. Tekrar tahmin et..")
-        bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
-        if len(guesses) >= max_guesses:
-            bot.reply_to(message, "Üzgünüz, tahminleriniz tükendi! Kelime {}.".format(word))
-            game_started = False
+        if guess in word:
+            masked_word = "".join([letter if letter in guesses else "_" for letter in word])
+            bot.reply_to(message, "İyi tahmin! Şimdiye kadarki kelime:\n{}\n{}".format(masked_word, hangman_drawings[len(guesses)]))
+            if masked_word == word:
+                bot.reply_to(message, "Tebrikler, kazandınız! Kelime {}.".format(word))
+                game_started = False
+        else:
+            bot.reply_to(message, "Üzgünüm, o harf kelimede yok. Tekrar tahmin et..")
+            bot.reply_to(message, "{}\n{}".format(" ".join(guesses), hangman_drawings[len(guesses)-1]))
+            if len(guesses) >= max_guesses:
+                bot.reply_to(message, "Üzgünüz, tahminleriniz tükendi! Kelime {}.".format(word))
+                game_started = False
 
 # Ignore messages that are not game related
 @bot.message_handler(func=lambda message: True)
