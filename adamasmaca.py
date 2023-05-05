@@ -90,21 +90,23 @@ def ignore_message(message):
         pass
 
 
-flags = {
-    'https://telegra.ph/amerika-05-05-10': 'Amerika Birleşik Devletleri',
-    'https://telegra.ph/Turkiye-05-05-3': 'Türkiye'
+flags_url = {
+    '🇺🇲':'https://telegra.ph/amerika-05-05-10',
+    '🇹🇷':'https://telegra.ph/Turkiye-05-05-3'
 }
 
 # Rastgele bir bayrak ve ülke seçme fonksiyonu
 def select_flag():
-    flag_url, country = random.choice(list(flags.items()))
-    return flag_url, country
+    flag = random.choice(list(flags.keys()))
+    country = flags[flag]
+    flag_url = flags_url[flag]
+    return flag, country, flag_url
 
 # /play komutuna cevap verme
-@bot.message_handler(commands=['bayrak'])
+@bot.message_handler(commands=['play'])
 def play_message(message):
-    flag_url, country = select_flag()
-    bot.send_message(message.chat.id, f'Hangi ülkenin bayrağı bu? {flag_url}')
+    flag, country, flag_url = select_flag()
+    bot.send_photo(message.chat.id, flag_url, caption=f'Hangi ülkenin bayrağı bu? {flag}')
     bot.register_next_step_handler(message, check_answer, country)
 
 # Cevap kontrol fonksiyonu
