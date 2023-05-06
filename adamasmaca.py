@@ -4,39 +4,6 @@ import random
 # Create a new bot with your API token
 bot = TeleBot("5861916928:AAF1szw5vhSWcaGksYeO2m9bS4FENSE6W9M")
 
-flags = [{'name': 'Türkiye', 'emoji': '🇹🇷'},
-         {'name': 'Brezilya', 'emoji': '🇧🇷'},
-         {'name': 'Japonya', 'emoji': '🇯🇵'},
-         {'name': 'Fransa', 'emoji': '🇫🇷'},
-         {'name': 'İtalya', 'emoji': '🇮🇹'}]
-
-
-
-# Check answer function
-def check_answer(message):
-    user_answer = message.text.lower()
-    flag = bot.flag
-    if user_answer == flag['name'].lower():
-        bot.send_message(message.chat.id, "Doğru cevap! Yeni bir bayrak gösteriliyor.")
-        game(message.chat.id)
-    else:
-        
-        bot.register_next_step_handler(message, check_answer)
-
-# Game function
-def game(chat_id):
-    flag = random.choice(flags)
-    bot.flag = flag
-    bot.send_message(chat_id, f"Aşagıda gösterilen Bayrağın ülkesini yazın...")
-    bot.register_next_step_handler(bot.send_message(chat_id, f"{flag['emoji']}"), check_answer)
-
-# Start command handler
-@bot.message_handler(commands=['bayrak'])
-def bayrak(message):
-    bot.send_message(message.chat.id, "Bayrak tahmin oyununa hoş geldiniz!")
-    game(message.chat.id)
-
-
 
 # Define the game and its variables
 words = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay"
