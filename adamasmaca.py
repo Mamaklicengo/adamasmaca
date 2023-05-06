@@ -117,7 +117,7 @@ def game(chat_id):
 
 # Start command handler
 @bot.message_handler(commands=['bayrak'])
-def start(message):
+def bayrak(message):
     bot.send_message(message.chat.id, "Bayrak tahmin oyununa hoş geldiniz!")
     game(message.chat.id)
 
