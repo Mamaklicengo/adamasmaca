@@ -6,7 +6,7 @@ bot = TeleBot("6704245576:AAGqYQrMMuH2yt2sHJ9Zhk7q2wtNrDA_Eow")
 
 
 # Define the game and its variables
-words = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay"
+words = "vefa","cengo","mamaklı","ışık","özcan","aslı","emine","fatma","oktay","ilkay","maske", "kalem", "kutu", "sokak", "futbol", "gözük", "kahve", "dünya", "kablo", "muzik", "kilit", "zaman", "güneş", "yatak", "karga", "kuzey", "kumlu", "süper", "kavak", "takip", "yelken", "konus", "kutup", "pasta", "sosis", "motos", "kitap", "kazak", "sabah", "mango", "kulak", "kıyma", "sözde", "kızıl", "gövde", "köpek", "makin", "kemer", "kömür", "keman", "köfte", "köprü", "köşeç", "köyceğiz", "köylü", "közdeş", "közdeşlik", "közleme", "közlenme", "közleşme", "közleştirme", "közleyiş", "közleyişlik"
 guesses = []
 max_guesses = 6
 game_started = False
