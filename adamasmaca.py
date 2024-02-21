@@ -2,7 +2,7 @@ from telebot import TeleBot, types
 import random
 
 # Create a new bot with your API token
-bot = TeleBot("5861916928:AAF1szw5vhSWcaGksYeO2m9bS4FENSE6W9M")
+bot = TeleBot("6704245576:AAGqYQrMMuH2yt2sHJ9Zhk7q2wtNrDA_Eow")
 
 
 # Define the game and its variables
